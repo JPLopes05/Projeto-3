@@ -1,22 +1,30 @@
 #ifndef PROJETO_H
 #define PROJETO_H
 
-//João Pedro Lopes - RA: 24.123.071-3
-
 struct Tarefa {
-    int prioridade;
-    char categoria[100];
-    char descricao[300];
-    char status[100];
+  int prioridade;
+  char categoria[100];
+  char descricao[300];
+  char status[100];
 };
-//Espaço responsável por definir a estrutura da tarefa
 
+// Função responsável por limpar as informações da variável para poder armazenar
+// novas informações
 void limpa();
-//cabeçalho da função responsável por limpar as informações salvas na variável para poder armazenar novas informações
+
+// Lê e armazena as tarefas
 void ler(struct Tarefa *armazena);
-//cabeçalho da função que lê as informações dadas pelo usuário e armazena no arquivo
+
+// Exclui as tarefas escolhidas
 void excluir_tarefa(struct Tarefa *tarefas, int *cont, int posicao);
-//cabeçalho da função que vai excluir as tarefas
+
+// Altera as tarefas escolhidas
 void alterar_tarefa(struct Tarefa *tarefas, int cont);
+
+// Filtra as tarefas por prioridade, categoria, Status e Prioridade/Categoria
 void filtrar_tarefas(struct Tarefa *tarefas, int cont, int opcao);
-#endif//PROJETO_H
+
+// Exporta as tarefas por prioridade, categoria, Status e Prioridade/Categoria
+void exportar_tarefas(struct Tarefa *tarefas, int cont, int opcao);
+
+#endif // PROJETO_H

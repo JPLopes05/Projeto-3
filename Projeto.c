@@ -192,6 +192,8 @@ void exportar_tarefas(struct Tarefa *tarefas, int cont, int opcao) {
     char filtro_categoria[100];
     int filtro_prioridade = -1;
 
+    limpa();
+
     if (opcao == 4) {
         printf("Digite a categoria desejada: ");
         fgets(filtro_categoria, sizeof(filtro_categoria), stdin);

@@ -108,3 +108,80 @@ void alterar_tarefa(struct Tarefa *tarefas, int cont) {
         printf("Posicao invalida!\n\n");
     }
 }
+
+void filtrar_tarefas(struct Tarefa *tarefas, int cont, int opcao) {
+    char filtro[100]; // Tamanho adequado para categoria, prioridade ou status
+
+    limpa(); // Limpa o buffer do teclado
+
+    // Remova este trecho para a opção 4
+    if (opcao != 4) {
+        printf("Digite o filtro desejado: ");
+        fgets(filtro, sizeof(filtro), stdin);
+        filtro[strcspn(filtro, "\n")] = '\0'; // Remove a quebra de linha do final
+
+        if (opcao == 3) {
+            // Converte a escolha do usuário para o status correspondente
+            switch (atoi(filtro)) {
+                case 1:
+                    strncpy(filtro, "Não iniciado", sizeof(filtro));
+                    break;
+                case 2:
+                    strncpy(filtro, "Em andamento", sizeof(filtro));
+                    break;
+                case 3:
+                    strncpy(filtro, "Completo", sizeof(filtro));
+                    break;
+                default:
+                    printf("Opcao invalida para o status. Filtrando por todos os status.\n");
+                    break;
+            }
+        }
+    }
+
+    // Adiciona uma nova opção para filtrar por categoria e prioridade simultaneamente
+    char filtro_categoria[100];
+    int filtro_prioridade = -1;
+
+    if (opcao == 4) {
+        printf("Digite a categoria desejada: ");
+        fgets(filtro_categoria, sizeof(filtro_categoria), stdin);
+        filtro_categoria[strcspn(filtro_categoria, "\n")] = '\0'; // Remove a quebra de linha do final
+
+        printf("Digite a prioridade desejada: ");
+        scanf("%d", &filtro_prioridade);
+        limpa();
+    }
+
+    printf("Tarefas filtradas:\n");
+
+    for (int i = 0; i < cont; i++) {
+        int condicao;
+
+        switch (opcao) {
+            case 1:
+                condicao = strcmp(tarefas[i].categoria, filtro) == 0;
+                break;
+            case 2:
+                condicao = tarefas[i].prioridade == atoi(filtro);
+                break;
+            case 3:
+                condicao = strcmp(tarefas[i].status, filtro) == 0;
+                break;
+            case 4:
+                condicao = (strcmp(tarefas[i].categoria, filtro_categoria) == 0) && (tarefas[i].prioridade == filtro_prioridade);
+                break;
+            default:
+                condicao = 0; // Opção inválida
+                break;
+        }
+
+        if (condicao) {
+            printf("Tarefa %d\n", i + 1);
+            printf("Prioridade: %d\n", tarefas[i].prioridade);
+            printf("Categoria: %s\n", tarefas[i].categoria);
+            printf("Descricao: %s\n", tarefas[i].descricao);
+            printf("Status: %s\n\n", tarefas[i].status);
+        }
+    }
+}

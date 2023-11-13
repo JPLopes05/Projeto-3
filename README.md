@@ -1,0 +1,3 @@
+# Projeto-3
+
+Esse projeto é a continuação do Projeto 1, que tinha como objetivo Criar Tarefas com suas prioridades, categorias e descrição, tendo que listá-las e excluí-las. Nessa segunda parte várias funções adicionais foram implementadas, além do Status de cada tarefa. A função de alterar tarefas é uma delas, que permite o usuário fazer qualquer mudança necessária em uma tarefa já criada. Outras seriam a de filtrar as tarefas por prioridade, categoria, status e prioridade/categoria. Além disso a função de exportar a tarefas também foi adicionada, que permite passar para um .txt as tarefas por categoria, prioridade e categoria/prioridade.

@@ -1,6 +1,8 @@
 #ifndef PROJETO_H
 #define PROJETO_H
 
+//João Pedro Lopes - RA: 24.123.071-3
+
 struct Tarefa {
     int prioridade;
     char categoria[100];
@@ -16,4 +18,5 @@ void ler(struct Tarefa *armazena);
 void excluir_tarefa(struct Tarefa *tarefas, int *cont, int posicao);
 //cabeçalho da função que vai excluir as tarefas
 void alterar_tarefa(struct Tarefa *tarefas, int cont);
+void filtrar_tarefas(struct Tarefa *tarefas, int cont, int opcao);
 #endif//PROJETO_H

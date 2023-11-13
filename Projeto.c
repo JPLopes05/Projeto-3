@@ -185,3 +185,77 @@ void filtrar_tarefas(struct Tarefa *tarefas, int cont, int opcao) {
         }
     }
 }
+
+void exportar_tarefas(struct Tarefa *tarefas, int cont, int opcao) {
+    FILE *arquivo_exportado;
+    char nome_arquivo[100];
+    char filtro_categoria[100];
+    int filtro_prioridade = -1;
+
+    if (opcao == 4) {
+        printf("Digite a categoria desejada: ");
+        fgets(filtro_categoria, sizeof(filtro_categoria), stdin);
+        filtro_categoria[strcspn(filtro_categoria, "\n")] = '\0';
+
+        printf("Digite a prioridade desejada: ");
+        scanf("%d", &filtro_prioridade);
+        limpa();
+    } else if (opcao >= 1 && opcao <= 3) {
+        printf("Digite o filtro desejado: ");
+        fgets(filtro_categoria, sizeof(filtro_categoria), stdin);
+        filtro_categoria[strcspn(filtro_categoria, "\n")] = '\0';
+    }
+
+    switch (opcao) {
+        case 1:
+            snprintf(nome_arquivo, sizeof(nome_arquivo), "export_categoria_%s.txt", filtro_categoria);
+            break;
+        case 2:
+            snprintf(nome_arquivo, sizeof(nome_arquivo), "export_prioridade_%d.txt", filtro_prioridade);
+            break;
+        case 3:
+            snprintf(nome_arquivo, sizeof(nome_arquivo), "export_status_%s.txt", filtro_categoria);
+            break;
+        case 4:
+            snprintf(nome_arquivo, sizeof(nome_arquivo), "export_categoria_%s_prioridade_%d.txt", filtro_categoria, filtro_prioridade);
+            break;
+        default:
+            printf("Opcao invalida para exportar.\n");
+            return;
+    }
+
+    arquivo_exportado = fopen(nome_arquivo, "w");
+    if (arquivo_exportado == NULL) {
+        printf("Erro ao criar o arquivo de exportacao.\n");
+        return;
+    }
+
+    for (int i = 0; i < cont; i++) {
+        int condicao;
+
+        switch (opcao) {
+            case 1:
+                condicao = strcmp(tarefas[i].categoria, filtro_categoria) == 0;
+                break;
+            case 2:
+                condicao = tarefas[i].prioridade == filtro_prioridade;
+                break;
+            case 3:
+                condicao = strcmp(tarefas[i].status, filtro_categoria) == 0;
+                break;
+            case 4:
+                condicao = (strcmp(tarefas[i].categoria, filtro_categoria) == 0) && (tarefas[i].prioridade == filtro_prioridade);
+                break;
+            default:
+                condicao = 0; // Opção inválida
+                break;
+        }
+
+        if (condicao) {
+            fprintf(arquivo_exportado, "%d, %s, %s, %s\n", tarefas[i].prioridade, tarefas[i].categoria, tarefas[i].status, tarefas[i].descricao);
+        }
+    }
+
+    fclose(arquivo_exportado);
+    printf("Tarefas exportadas para o arquivo: %s\n", nome_arquivo);
+}

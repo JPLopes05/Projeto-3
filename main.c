@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include "Projeto.h"
 
+//João Pedro Lopes - RA: 24.123.071-3
+
 int main() {
     struct Tarefa t[100];
     FILE *arquivo_binario = fopen("tarefas.txt", "rb");
@@ -22,6 +24,7 @@ int main() {
         printf(" 3 - Excluir\n");
         printf(" 4 - Listar\n");
         printf(" 5 - Sair\n");
+        printf(" 6 - Filtrar\n");
         printf("Digite o numero da opcao que deseja usar: ");
 
         char *p, s_opcao[100];
@@ -66,7 +69,17 @@ int main() {
             printf("Saindo\n");
             break;
             //opção selecionada pelo usuário que fará com que o arquivo feche
-        } 
+        } else if (opcao == 6) {
+          int opcao_filtro;
+            printf("Escolha o tipo de filtro:\n");
+            printf("1 - Categoria\n");
+            printf("2 - Prioridade\n");
+            printf("3 - Status\n");
+            printf("4 - Categoria e prioridade\n");
+            printf("Digite o numero da opcao que deseja usar: ");
+            scanf("%d", &opcao_filtro);
+            filtrar_tarefas(t, cont, opcao_filtro);
+        }
           else {
             printf("Valor invalido!\n\n");
 
